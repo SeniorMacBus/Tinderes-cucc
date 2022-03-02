@@ -12,11 +12,11 @@ from pynput import mouse
 dislike_logo = [1058, 844, 1151, 936]
 like_logo = [1241, 846, 1336, 940]
 
-tinder_color_coord = (245, 146)
+tinder_color_coord = (228, 147)
 # like_color_coord = (1283, 864)
 # dislike_color_coord = (1099, 861)
 
-tinder_logo_color = np.array([254, 69, 85])
+tinder_logo_color = np.array([254, 67, 88])
 # like_color = np.array([34, 207, 125])
 # dislike_color = np.array([254, 69, 85])
 
