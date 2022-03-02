@@ -58,7 +58,7 @@ def on_click(x, y, button, pressed):
     global tinder_color_coord, tinder_logo_color, swipes
 
     if pressed:
-
+        print("{0}".format((x, y)))
         if check_tinder():
             swipes = update_swipes(swipes, x, y)
         
