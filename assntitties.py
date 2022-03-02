@@ -50,7 +50,7 @@ def check_tinder():
 
     im = ImageGrab.grab()
 
-    if np.asarray(im.getpixel(xy=tinder_color_coord)) == tinder_logo_color:
+    if np.all(np.asarray(im.getpixel(xy=tinder_color_coord))) == np.all(tinder_logo_color):
         return True
     else:
         return False
@@ -71,31 +71,3 @@ with mouse.Listener(on_click=on_click) as listener:
     listener.join()
     
 print(swipes)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#TODO
-#ha nincs ott nem a tindert nézzük és nem fut a program, ha igen akkor processel
-#megnézni hol van a like és a dislike button a képernyőn
-#amikor kattint ezt a kettőt megnézni és eldönteni melyikre kattintott
-#hozzáadni a likehoz/dislikehoz egy értéket
-#a kattintás után várni 0.5 másodpercet és csekkolni, hogy Match-e
-#ábrázolni plotly-ban date szerint hogy mennyi lef és mennyi right swipe volt
