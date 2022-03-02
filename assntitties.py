@@ -50,9 +50,13 @@ def check_tinder():
 
     im = ImageGrab.grab()
 
-    if np.all(np.asarray(im.getpixel(xy=tinder_color_coord))) == np.all(tinder_logo_color):
+    comp_arr = np.asarray(im.getpixel(xy=tinder_color_coord)) == tinder_logo_color
+
+    if np.all(comp_arr):
+        print("Tindert nezunk epp")
         return True
     else:
+        print("Nem csocsok es segg :c")
         return False
 
 def on_click(x, y, button, pressed):
