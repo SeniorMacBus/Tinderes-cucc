@@ -29,17 +29,11 @@ def update_swipes(swipes, x, y):
 
     global like_logo, dislike_logo
 
-    l = 0
-    r = 0
-
-    if x > like_logo[0] and x < like_logo[2] and y > like_logo[1] and y < like_logo[3]:
-        r += 1
+    if (x > like_logo[0] and x < like_logo[2]) and (y > like_logo[1] and y < like_logo[3]):
+        swipes[1] +=1
     
-    if x > dislike_logo[0] and x < dislike_logo[2] and y > dislike_logo[1] and y < dislike_logo[3]:
-        l += 1
-    
-    swipes[0] = l
-    swipes[1] = r
+    if (x > dislike_logo[0] and x < dislike_logo[2]) and (y > dislike_logo[1] and y < dislike_logo[3]):
+        swipes[0] += 1
 
     return swipes
 
