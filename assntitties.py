@@ -1,3 +1,6 @@
+#for naming the files
+from datetime import datetime
+
 #data processing packages
 import numpy as np
 
@@ -8,21 +11,14 @@ from PIL import ImageGrab
 from pynput import mouse
 
 #setting up the coordinates for the logos and shit
-# tinder_logo = [4, 110, 465, 194]
 dislike_logo = [1058, 844, 1151, 936]
 like_logo = [1241, 846, 1336, 940]
-
 tinder_color_coord = (228, 147)
-# like_color_coord = (1283, 864)
-# dislike_color_coord = (1099, 861)
-
 tinder_logo_color = np.array([254, 67, 88])
-# like_color = np.array([34, 207, 125])
-# dislike_color = np.array([254, 69, 85])
+
 
 #list for storing the number of left and right swipes
 swipes = [0, 0]
-labels = ["dislikes", "likes"]
 
 def update_swipes(swipes, x, y):
     """Updates the number of left and right swipes after each click"""
@@ -47,10 +43,8 @@ def check_tinder():
     comp_arr = np.asarray(im.getpixel(xy=tinder_color_coord)) == tinder_logo_color
 
     if np.all(comp_arr):
-        print("Tindert nezunk epp")
         return True
     else:
-        print("Nem csocsok es segg :c")
         return False
 
 def on_click(x, y, button, pressed):
@@ -58,14 +52,26 @@ def on_click(x, y, button, pressed):
     global tinder_color_coord, tinder_logo_color, swipes
 
     if pressed:
-        print("{0}".format((x, y)))
         if check_tinder():
             swipes = update_swipes(swipes, x, y)
         
+        #if we close tinder the listening stops
         if x > 1866 and x < 1915 and y > 1 and y < 51:
             return False
 
+#turning on mouse sensing
 with mouse.Listener(on_click=on_click) as listener:
     listener.join()
     
-print(swipes)
+filename = datetime.today().strftime("%Y-%m-%d") + ".txt"
+
+data_to_write = [
+    "left swipes    right swipes\n",
+    "{0}    {1}\n".format(swipes[0], swipes[1])
+]
+
+with open(filename, 'w') as daily:
+    daily.writelines(data_to_write)
+
+with open("totalswipes.txt", 'a') as ftot:
+    ftot.write(data_to_write[1])
