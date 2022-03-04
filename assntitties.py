@@ -92,5 +92,5 @@ data_to_write = [
 with open(filename, 'w') as file:
     file.writelines(data_to_write)
 
-with open("total_swipes.txt", 'a') as f_tot:
-    f_tot.write(data_to_write[1])
+#TODO
+# writing the total to a total_swipes.txt correctly
