@@ -22,21 +22,19 @@ filename = datetime.today().strftime("%Y-%m-%d") + ".txt"
 
 def check_files(filename):
     """Checks if the file with today's date already exists. If it does it reads it's data and returns it."""
-
-    for f_name in os.scandir():
         
-        if os.path.exists(f_name):
-            with open(f_name, 'r') as file:
+    if os.path.exists(filename):
+        with open(filename, 'r') as file:
                 
-                next(file)
-                data = list(map(
-                    int,
-                    file.readline().split('\t')
-                ))
+            next(file)
+            data = list(map(
+                int,
+                file.readline().split('\t')
+            ))
 
-            return data
-        else:
-            return [0, 0]
+        return data
+    else:
+        return [0, 0]
 
 def update_swipes(swipes, x, y):
     """Updates the number of left and right swipes after each click"""
@@ -77,7 +75,12 @@ def on_click(x, y, button, pressed):
         if x > 1866 and x < 1915 and y > 1 and y < 51:
             return False
 
+
 swipes = check_files(filename)
+
+# used_today = np.all(
+#     np.array(swipes) == np.array([0, 0])
+# )
 
 #turning on mouse sensing
 with mouse.Listener(on_click=on_click) as listener:
@@ -91,3 +94,9 @@ data_to_write = [
 with open(filename, 'w') as file:
     file.writelines(data_to_write)
 
+
+# if not used_today:
+#     with open("totalswipes.txt", 'a') as f_tot:
+#         f_tot.writelines(data_to_write[1])
+# else:
+#     pass
