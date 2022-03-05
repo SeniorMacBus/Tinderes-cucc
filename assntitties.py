@@ -29,7 +29,7 @@ def check_files(filename):
             next(file)
             data = list(map(
                 int,
-                file.readline().split('\t')
+                file.read().split('\t')
             ))
 
         return data
