@@ -1,6 +1,5 @@
 #for naming the files
 from datetime import datetime
-import fnmatch
 import os
 
 #data processing packages
@@ -26,7 +25,7 @@ def check_files(filename):
 
     for f_name in os.scandir():
         
-        if fnmatch.fnmatch(f_name, filename):
+        if os.path.exists(f_name):
             with open(f_name, 'r') as file:
                 
                 next(file)
@@ -92,5 +91,3 @@ data_to_write = [
 with open(filename, 'w') as file:
     file.writelines(data_to_write)
 
-#TODO
-# writing the total to a total_swipes.txt correctly
