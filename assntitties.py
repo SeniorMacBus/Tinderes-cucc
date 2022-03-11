@@ -1,5 +1,5 @@
 #for naming the files
-from datetime import datetime
+import datetime
 import os
 
 #data processing packages
@@ -17,10 +17,11 @@ like_logo = [1241, 846, 1336, 940]
 tinder_color_coord = (228, 147)
 tinder_logo_color = np.array([254, 67, 88])
 
-#creating a filename with today's date
-filename = datetime.today().strftime("%Y-%m-%d") + ".txt"
+#creating filenames with today's and yesterday's date
+today = datetime.datetime.today()
+filename = today.strftime("%Y-%M-%d") + ".txt"
 
-def check_files(filename):
+def check_file(filename):
     """Checks if the file with today's date already exists. If it does it reads it's data and returns it."""
         
     if os.path.exists(filename):
@@ -29,9 +30,9 @@ def check_files(filename):
             next(file)
             data = list(map(
                 int,
-                file.read().split('\t')
+                file.read().split()
             ))
-
+        
         return data
     else:
         return [0, 0]
@@ -75,12 +76,7 @@ def on_click(x, y, button, pressed):
         if x > 1866 and x < 1915 and y > 1 and y < 51:
             return False
 
-
-swipes = check_files(filename)
-
-# used_today = np.all(
-#     np.array(swipes) == np.array([0, 0])
-# )
+swipes = check_file(filename)
 
 #turning on mouse sensing
 with mouse.Listener(on_click=on_click) as listener:
@@ -88,15 +84,14 @@ with mouse.Listener(on_click=on_click) as listener:
 
 data_to_write = [
     "left swipes    right swipes\n",
-    "{0}    {1}\n".format(swipes[0], swipes[1])
+    "{0}\t{1}\n".format(swipes[0], swipes[1])
 ]
 
 with open(filename, 'w') as file:
-    file.writelines(data_to_write)
+        file.writelines(data_to_write)
 
+answer = input("Would you like to update the total swipes? (y/n): ")
 
-# if not used_today:
-#     with open("totalswipes.txt", 'a') as f_tot:
-#         f_tot.writelines(data_to_write[1])
-# else:
-#     pass
+if(answer == 'y' or answer == 'Y'):
+    with open("totalswipes.txt", 'a') as f_tot:
+        file.write(data_to_write[1])
